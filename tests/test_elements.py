@@ -36,7 +36,6 @@ class TestElements:
             radio_button_page.open()
             radio_button_page.click_on_the_radio_button('yes')
             output_yes = radio_button_page.get_output_result()
-            print(output_yes)
             radio_button_page.click_on_the_radio_button('impressive')
             output_impressive = radio_button_page.get_output_result()
             radio_button_page.click_on_the_radio_button('no')
