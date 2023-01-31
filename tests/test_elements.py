@@ -36,7 +36,6 @@ class TestElements:
             radio_button_page.open()
             radio_button_page.click_on_the_radio_button('yes')
             output_yes = radio_button_page.get_output_result()
-            print(output_yes)
             radio_button_page.click_on_the_radio_button('impressive')
             output_impressive = radio_button_page.get_output_result()
             radio_button_page.click_on_the_radio_button('no')
@@ -44,4 +43,22 @@ class TestElements:
             assert output_yes == 'Yes', "YES have not been selected"
             assert output_impressive == 'Impressive', "IMPRESSIVE have not been selected"
             assert output_no == 'No', "NO have not been selected"
+
+
+    class TestWebTable:
+
+        def test_add_person_in_table(self, driver):
+            web_table_page = WebTablePage(driver, "https://demoqa.com/webtables")
+            web_table_page.open()
+            new_person = web_table_page.add_new_person()
+            return_result = web_table_page.check_new_added_person()
+            assert new_person in return_result
+
+        def test_web_table_search_person(self, driver):
+            web_table_page = WebTablePage(driver, "https://demoqa.com/webtables")
+            web_table_page.open()
+            key_word = web_table_page.add_new_person()[random.randint(0, 5)]
+            web_table_page.search_some_people(key_word)
+            table_result = web_table_page.check_search_person()
+            assert key_word in table_result, "The person was not found in the table"
 
