@@ -117,3 +117,17 @@ class TestElements:
             response_code = links_page.check_broken_link('https://demoqa.com/bad-request')
             assert response_code == 400, "The link works or the status code in son 400"
 
+
+    class TestDowmloadAndUploadPage:
+
+        def test_upload_file(self, driver):
+            upload_page = UploadPage(driver, 'https://demoqa.com/upload-download')
+            upload_page.open()
+            file_name, result = upload_page.upload_file()
+            assert file_name == result, "The has not been upload"
+        def test_download_file(self, driver):
+            download_page = DownloadPage(driver, 'https://demoqa.com/upload-download')
+            download_page.open()
+            check = download_page.download_file()
+            assert check is True, "The file is not been download"
+
