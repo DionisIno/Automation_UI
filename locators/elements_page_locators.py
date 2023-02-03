@@ -75,3 +75,8 @@ class UploadPageLocators:
 class DownloadPageLocators:
     DOWNLOAD_FILE = (By.CSS_SELECTOR, "a[id='downloadButton']")
 
+class DynamicPageLocators:
+    ENABLE_AFTER_FIVE_SECOND = (By.CSS_SELECTOR, "button[id='enableAfter']")
+    COLOR_CHANGE_BUTTON = (By.CSS_SELECTOR, "button[id='colorChange']")
+    VISIBLE_AFTER_FIVE_SECOND = (By.CSS_SELECTOR, "button[id='visibleAfter']")
+

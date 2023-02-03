@@ -131,3 +131,24 @@ class TestElements:
             check = download_page.download_file()
             assert check is True, "The file is not been download"
 
+
+    class TestDynamicButtons:
+
+        def test_enable_button(self, driver):
+            enable_button = DynamicPage(driver, 'https://demoqa.com/dynamic-properties')
+            enable_button.open()
+            clickable = enable_button.check_enable_button()
+            assert clickable is True, "The button is not been clickable after 5 second"
+
+        def test_dynamic_properties(self, driver):
+            dynamic_buttons_page = DynamicPage(driver, 'https://demoqa.com/dynamic-properties')
+            dynamic_buttons_page.open()
+            before_color, after_color = dynamic_buttons_page.check_changed_of_color()
+            assert before_color != after_color and after_color == "rgba(220, 53, 69, 1)", "The colors have not benn changed"
+
+        def test_appear_button(self, driver):
+            appear_buttons_page = DynamicPage(driver, 'https://demoqa.com/dynamic-properties')
+            appear_buttons_page.open()
+            appear = appear_buttons_page.check_appear_button()
+            assert appear is True, "The button is not appear after 5 second"
+
