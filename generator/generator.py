@@ -18,6 +18,7 @@ def generated_person():
         email=faker_ru.email(),
         current_address=faker_ru.address(),
         permanent_address=faker_ru.address(),
+        mobile=faker_ru.msisdn()
     )
 
 def generated_file():
@@ -26,3 +27,15 @@ def generated_file():
     file.write(f"Hello World{random.randint(0, 999)}")
     file.close()
     return file.name, path
+
+def generated_subject():
+    subject = ["Hindi", "English", "Maths", "Physics", "Chemistry", "Biology", "Computer Science",
+               "Commerce", "Accounting", "Economics", "Arts", "Social Studies", "History", "Civics"]
+
+    return subject[random.randint(0, len(subject)-1)]
+
+
+def generated_state():
+    state = ["NCR", "Uttar Pradesh", "Haryana", "Rajasthan"]
+
+    return state[random.randint(0, len(state)-1)]
