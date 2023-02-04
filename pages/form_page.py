@@ -34,7 +34,7 @@ class FormPage(BasePage):
         self.element_is_visible(self.locators.STATE_INPUT).send_keys(Keys.RETURN)
         self.element_is_visible(self.locators.SELECT_CITY).click()
         self.element_is_visible(self.locators.CITY_INPUT).send_keys(Keys.RETURN)
-        self.element_is_visible(self.locators.SUBMIT, 5)
+        self.element_is_visible(self.locators.SUBMIT, 5).click()
         return person
 
 

@@ -134,6 +134,7 @@ class WebTablePage(BasePage):
         return self.element_is_present(self.locators.NO_ROWS_FOUND).text
 
     def select_up_to_some_rows(self):
+        self.remove_footer()
         count = [5, 10, 20, 25, 50, 100]
         data = []
         for x in count:
