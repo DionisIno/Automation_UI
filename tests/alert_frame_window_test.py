@@ -20,3 +20,29 @@ class TestAlertsFrameWindow:
             new_window_page.open()
             text_result = new_window_page.check_opened_new_tab()
             assert text_result == "This is a sample page", "The new window is not find"
+
+    class TestAlertsPage:
+
+        def test_simple_alert(self, driver):
+            simple_alert = AlertsPage(driver, "https://demoqa.com/alerts")
+            simple_alert.open()
+            alert_text = simple_alert.simple_alert_button()
+            assert alert_text == 'You clicked a button'
+
+        def test_alert_after_five_second(self, driver):
+            alert_after_five_second = AlertsPage(driver, "https://demoqa.com/alerts")
+            alert_after_five_second.open()
+            alert_text = alert_after_five_second.alert_after_five_second()
+            assert alert_text == 'This alert appeared after 5 seconds'
+
+        def test_confirm_box(self, driver):
+            comfirm_box_alert = AlertsPage(driver, "https://demoqa.com/alerts")
+            comfirm_box_alert.open()
+            text_message = comfirm_box_alert.confirm_box()
+            assert text_message == "You selected Cancel"
+
+        def test_prompt_box(self, driver):
+            prompt_box_alert = AlertsPage(driver, "https://demoqa.com/alerts")
+            prompt_box_alert.open()
+            text_message, text = prompt_box_alert.prompt_box()
+            assert text_message == f"You entered {text}"
