@@ -74,3 +74,15 @@ class FramePage(BasePage):
             text = self.element_is_present(self.locators.FRAME_PAGE).text
             self.driver.switch_to.default_content()
             return [width, height, text]
+
+class NestedFramePage(BasePage):
+    locators = NestedFramePageLocators
+
+    def nested_frame_page(self):
+        first_frame = self.element_is_present(self.locators.FIRST_FRAME)
+        self.driver.switch_to.frame(first_frame)
+        text_first_frame = self.element_is_present(self.locators.FIRST_FRAME_TEXT).text
+        second_frame = self.element_is_present(self.locators.SECOND_FRAME)
+        self.driver.switch_to.frame(second_frame)
+        text_second_frame = self.element_is_present(self.locators.SECOND_FRAME_TEXT).text
+        return text_first_frame, text_second_frame

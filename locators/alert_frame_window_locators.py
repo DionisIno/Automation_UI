@@ -18,3 +18,9 @@ class FramePageLocators:
     BIG_FRAME = (By.CSS_SELECTOR, "iframe[id='frame1']")
     SMALL_FRAME = (By.CSS_SELECTOR, "iframe[id='frame2']")
     FRAME_PAGE = (By.CSS_SELECTOR, "h1[id='sampleHeading']")
+
+class NestedFramePageLocators:
+    FIRST_FRAME = (By.CSS_SELECTOR, "iframe[id='frame1']")
+    FIRST_FRAME_TEXT = (By.CSS_SELECTOR, "body")
+    SECOND_FRAME = (By.CSS_SELECTOR, "iframe[srcdoc='<p>Child Iframe</p>']")
+    SECOND_FRAME_TEXT = (By.CSS_SELECTOR, "p")
