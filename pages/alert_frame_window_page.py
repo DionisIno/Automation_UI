@@ -54,3 +54,23 @@ class AlertsPage(BasePage):
         alert_window.accept()
         text_message = self.element_is_present(self.locators.PROMPT_BOX_ANSWER).text
         return text_message, text
+
+class FramePage(BasePage):
+    locators = FramePageLocators
+    def check_frame(self, frame_number):
+        if frame_number == 'frame1':
+            frame = self.element_is_present(self.locators.BIG_FRAME)
+            width = frame.get_attribute('width')
+            height = frame.get_attribute('height')
+            self.driver.switch_to.frame(frame)
+            text = self.element_is_present(self.locators.FRAME_PAGE).text
+            self.driver.switch_to.default_content()
+            return [width, height, text]
+        if frame_number == 'frame2':
+            frame = self.element_is_present(self.locators.SMALL_FRAME)
+            width = frame.get_attribute('width')
+            height = frame.get_attribute('height')
+            self.driver.switch_to.frame(frame)
+            text = self.element_is_present(self.locators.FRAME_PAGE).text
+            self.driver.switch_to.default_content()
+            return [width, height, text]

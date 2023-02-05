@@ -46,3 +46,15 @@ class TestAlertsFrameWindow:
             prompt_box_alert.open()
             text_message, text = prompt_box_alert.prompt_box()
             assert text_message == f"You entered {text}"
+
+
+    class TestFramePage:
+
+        def test_frame(self, driver):
+            frame_page = FramePage(driver, "https://demoqa.com/frames")
+            frame_page.open()
+            result1 = frame_page.check_frame('frame1')
+            result2 = frame_page.check_frame('frame2')
+            assert result1 == ['500px', '350px', 'This is a sample page'], "The frame does not exest"
+            assert result2 == ['100px', '100px', 'This is a sample page'], "The frame does not exest"
+
