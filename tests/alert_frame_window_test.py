@@ -66,3 +66,19 @@ class TestAlertsFrameWindow:
             text_first_frame, text_second_frame = nested_frame_page.nested_frame_page()
             assert text_first_frame == "Parent frame", "The parent frame does not exist"
             assert text_second_frame == "Child Iframe", "The child frame does not exist"
+
+    class TestModalWindow:
+
+        def test_small_modal_window(self, driver):
+            modal_window_page = ModalWindowPage(driver, "https://demoqa.com/modal-dialogs")
+            modal_window_page.open()
+            header_small_modal_window, text_small_modal_window = modal_window_page.small_modal_window()
+            assert header_small_modal_window == "Small Modal", "Title in small modal window does not found"
+            assert text_small_modal_window == "This is a small modal. It has very less content", "Text in small modal window does not found"
+
+        def test_big_modal_window(self, driver):
+            modal_window_page = ModalWindowPage(driver, "https://demoqa.com/modal-dialogs")
+            modal_window_page.open()
+            header_big_modal_window, text_big_modal_window = modal_window_page.big_modal_window()
+            assert header_big_modal_window == "Large Modal", "Title in big modal window does not found"
+            assert "Lorem Ipsum is simply dummy text of the printing and typesetting industry." in text_big_modal_window, "Text in big modal window does not found"

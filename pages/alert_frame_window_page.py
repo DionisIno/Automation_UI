@@ -86,3 +86,20 @@ class NestedFramePage(BasePage):
         self.driver.switch_to.frame(second_frame)
         text_second_frame = self.element_is_present(self.locators.SECOND_FRAME_TEXT).text
         return text_first_frame, text_second_frame
+
+class ModalWindowPage(BasePage):
+    locators = ModalWindowPageLocators
+
+    def small_modal_window(self):
+        self.element_is_present(self.locators.SMALL_MODAL_BUTTON).click()
+        small_header = self.element_is_present(self.locators.SMALL_MODAL_HEADER).text
+        small_text = self.element_is_present(self.locators.SMALL_MODAL_TEXT).text
+        self.element_is_visible(self.locators.SMALL_CLOSE_BUTTON).click()
+        return small_header, small_text
+
+    def big_modal_window(self):
+        self.element_is_present(self.locators.BIG_MODAL_BUTTON).click()
+        big_header = self.element_is_present(self.locators.BIG_MODAL_HEADER).text
+        big_text = self.element_is_present(self.locators.BIG_MODAL_TEXT).text
+        self.element_is_present(self.locators.BIG_CLOSE_BUTTON).click()
+        return big_header, big_text
