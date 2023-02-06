@@ -1,6 +1,6 @@
 import random
 
-from data.data import Person
+from data.data import Person, Color
 from faker import Faker
 
 faker_ru = Faker('ru_RU')
@@ -43,3 +43,8 @@ def generated_state():
 def accordian_choice():
     lst = ['first', 'second', 'third']
     return lst[random.randint(0, 2)]
+
+def generator_color():
+    yield Color(
+        color_name=["Red", "Blue", "Green", "Yellow", "Purple", "Black", "White", "Voilet", "Indigo", "Magenta", "Aqua"]
+    )
