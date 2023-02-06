@@ -39,3 +39,7 @@ def generated_state():
     state = ["NCR", "Uttar Pradesh", "Haryana", "Rajasthan"]
 
     return state[random.randint(0, len(state)-1)]
+
+def accordian_choice():
+    lst = ['first', 'second', 'third']
+    return lst[random.randint(0, 2)]
