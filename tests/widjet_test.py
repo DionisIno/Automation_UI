@@ -42,3 +42,20 @@ class TestWidjets:
             color = autocomplete_page.fill_single_auto_complete()
             check_color = autocomplete_page.check_single_color()
             assert color in check_color
+
+    class TestDatePickerPage:
+
+        def test_change_date(self, driver):
+            date_picker_page = DatePickerPage(driver, "https://demoqa.com/date-picker")
+            date_picker_page.open()
+            value_date_before, value_date_after = date_picker_page.select_date()
+            assert value_date_before != value_date_after
+
+
+        def test_change_date_and_time(self, driver):
+            date_picker_page = DatePickerPage(driver, "https://demoqa.com/date-picker")
+            date_picker_page.open()
+            value_date_before, value_date_after = date_picker_page.select_date_and_time()
+            print(value_date_before)
+            print(value_date_after)
+            assert value_date_before != value_date_after
