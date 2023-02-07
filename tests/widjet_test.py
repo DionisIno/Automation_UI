@@ -59,3 +59,17 @@ class TestWidjets:
             print(value_date_before)
             print(value_date_after)
             assert value_date_before != value_date_after
+
+    class TestSlider:
+        def test_slider(self, driver):
+            slider_page = SliderPage(driver, "https://demoqa.com/slider")
+            slider_page.open()
+            before, after = slider_page.change_slider_value()
+            assert before != after
+
+    class TestProgressBar:
+        def test_progress_bar(self, driver):
+            progress_bar_page = ProgressBar(driver, "https://demoqa.com/progress-bar")
+            progress_bar_page.open()
+            before, after = progress_bar_page.change_progress_bar_value()
+            assert before != after
