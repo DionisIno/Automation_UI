@@ -73,3 +73,18 @@ class TestWidjets:
             progress_bar_page.open()
             before, after = progress_bar_page.change_progress_bar_value()
             assert before != after
+
+
+    class TestTabsPage:
+
+        def test_tabs_page(self, driver):
+            tabs_page = TabsPage(driver, "https://demoqa.com/tabs")
+            tabs_page.open()
+            what_content = tabs_page.check_tabs('what')
+            origin_content = tabs_page.check_tabs('origin')
+            use_content = tabs_page.check_tabs('use')
+            more_content = tabs_page.check_tabs('more')
+            assert what_content[0] == 'What' and what_content[1] != 0, "The tab 'what' was not pressed or text is missing"
+            assert origin_content[0] == 'Origin' and origin_content[1] != 0, "The tab 'origin' was not pressed or text is missing"
+            assert use_content[0] == 'Use' and use_content[1] != 0, "The tab 'use' was not pressed or text is missing"
+            assert more_content[0] == 'More' and more_content[1] != 0, "The tab 'more' was not pressed or text is missing"
