@@ -190,3 +190,15 @@ class ToolTipsPage(BasePage):
         time.sleep(0.5)
         tool_tip_text_section = self.get_text_from_tool_tips(self.locators.SECTION_LINK, self.locators.TOOL_TIP_SECTION)
         return tool_tip_text_button, tool_tip_text_field, tool_tip_text_contrary, tool_tip_text_section
+
+class MenuPage(BasePage):
+    locators = MenuPageLocators
+
+    def check_menu(self):
+        menu_item_list = self.elements_are_presents(self.locators.MENU_ITEM_LIST)
+        data = []
+        for item in menu_item_list:
+            time.sleep(0.5)
+            self.action_move_to_element(item)
+            data.append(item.text)
+        return data
