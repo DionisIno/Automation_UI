@@ -23,3 +23,13 @@ class TestInteractions:
             grid_item = selectable_page.select_grid_item()
             assert len(list_item) > 0
             assert len(grid_item) > 0
+
+    class TestResizable:
+
+        def test_resizable(self, driver):
+            resizable_page = ResizablePage(driver, "https://demoqa.com/resizable")
+            resizable_page.open()
+            min_box, max_box = resizable_page.change_size_resaziable_box()
+            min_page, max_page = resizable_page.change_size_resaziable()
+            assert min_box != max_box
+            assert min_page != max_page
