@@ -13,3 +13,13 @@ class TestInteractions:
             before_grid, after_grid = sortable_page.change_grid()
             assert before_list != after_list
             assert before_grid != after_grid
+
+    class TestSelectablePage:
+
+        def test_selectable(self, driver):
+            selectable_page = SelectablePage(driver, "https://demoqa.com/selectable")
+            selectable_page.open()
+            list_item = selectable_page.select_list_item()
+            grid_item = selectable_page.select_grid_item()
+            assert len(list_item) > 0
+            assert len(grid_item) > 0

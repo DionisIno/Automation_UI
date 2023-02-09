@@ -39,3 +39,22 @@ class SortablePage(BasePage):
         self.action_drag_and_drop_to_element(item_what, item_where)
         order_after = self.get_sortable_items(self.locators.GRID_ITEM)
         return order_before, order_after
+
+class SelectablePage(BasePage):
+    locators = SelectablePageLocators
+
+    def click_selected_item(self, elem):
+        item_list = self.elements_are_visible(elem)
+        random.sample(item_list, k=1)[0].click()
+
+    def select_list_item(self):
+        self.element_is_visible(self.locators.LIST).click()
+        self.click_selected_item(self.locators.LIST_ITEM)
+        active_element = self.element_is_visible(self.locators.LIST_ITEM_ACTIVE)
+        return active_element.text
+
+    def select_grid_item(self):
+        self.element_is_visible(self.locators.GRID).click()
+        self.click_selected_item(self.locators.GRID_ITEM)
+        active_element = self.element_is_visible(self.locators.GRID_ITEM_ACTIVE)
+        return active_element.text
