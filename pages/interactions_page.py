@@ -144,3 +144,33 @@ class DroppablePage(BasePage):
         time.sleep(1)
         position_after = drag_div.get_attribute('style')
         return position_before, position_after
+
+class DragablePage(BasePage):
+    locators = DragablePageLocators
+
+    def simple(self):
+        self.element_is_visible(self.locators.SIMPLE_TAB).click()
+        drag_before = self.element_is_visible(self.locators.SIMPLE_DRAG)
+        position_before = drag_before.get_attribute('style')
+        self.action_drag_and_drop_by_offset(drag_before, random.randint(1, 300), random.randint(1, 300))
+        drag_after = self.element_is_visible(self.locators.SIMPLE_DRAG)
+        position_after = drag_after.get_attribute('style')
+        return position_before, position_after
+
+    def axis_y_restricted(self):
+        self.element_is_visible(self.locators.AXIS_TAB).click()
+        drag_y_before = self.element_is_visible(self.locators.ONLY_Y)
+        position_y_before = drag_y_before.get_attribute('style')
+        self.action_drag_and_drop_by_offset(drag_y_before, 0, random.randint(1, 300))
+        drag_y_after = self.element_is_visible(self.locators.ONLY_Y)
+        position_y_after = drag_y_after.get_attribute('style')
+        return position_y_before, position_y_after
+
+    def axis_x_restricted(self):
+        self.element_is_visible(self.locators.AXIS_TAB).click()
+        drag_x_before = self.element_is_visible(self.locators.ONLY_X)
+        position_x_before = drag_x_before.get_attribute('style')
+        self.action_drag_and_drop_by_offset(drag_x_before, random.randint(1, 300), 0)
+        drag_x_after = self.element_is_visible(self.locators.ONLY_X)
+        position_x_after = drag_x_after.get_attribute('style')
+        return position_x_before, position_x_after

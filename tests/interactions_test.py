@@ -69,3 +69,22 @@ class TestInteractions:
             before, after = revert_droppable_page.drop_not_revertable()
             assert before == after
 
+    class TestDragable:
+
+        def test_simple_dragable_page(self, driver):
+            drag_able_page = DragablePage(driver, "https://demoqa.com/dragabble")
+            drag_able_page.open()
+            before, after = drag_able_page.simple()
+            assert before != after
+
+        def test_axis_restricted_y_page(self, driver):
+            drag_able_page = DragablePage(driver, "https://demoqa.com/dragabble")
+            drag_able_page.open()
+            before_y, after_y = drag_able_page.axis_y_restricted()
+            assert before_y != after_y
+
+        def test_axis_restricted_x_page(self, driver):
+            drag_able_page = DragablePage(driver, "https://demoqa.com/dragabble")
+            drag_able_page.open()
+            before_x, after_x = drag_able_page.axis_x_restricted()
+            assert before_x != after_x
