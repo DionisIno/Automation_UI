@@ -2,6 +2,8 @@ import base64
 import os
 import time
 import random
+
+import allure
 import requests
 from selenium.common import TimeoutException
 from selenium.webdriver import Keys
@@ -16,10 +18,12 @@ from pages.base_page import BasePage
 class SortablePage(BasePage):
     locators = SortablePageLocators
 
+    @allure.step('get sortable items')
     def get_sortable_items(self, elem):
         item_list = self.elements_are_visible(elem)
         return [item.text for item in item_list]
 
+    @allure.step('change list order')
     def change_list(self):
         self.element_is_visible(self.locators.LIST).click()
         order_before = self.get_sortable_items(self.locators.LIST_ITEM)
@@ -30,6 +34,7 @@ class SortablePage(BasePage):
         order_after = self.get_sortable_items(self.locators.LIST_ITEM)
         return order_before, order_after
 
+    @allure.step('change grade order')
     def change_grid(self):
         self.element_is_visible(self.locators.GRID).click()
         order_before = self.get_sortable_items(self.locators.GRID_ITEM)
@@ -43,16 +48,19 @@ class SortablePage(BasePage):
 class SelectablePage(BasePage):
     locators = SelectablePageLocators
 
+    @allure.step('click selectable item')
     def click_selected_item(self, elem):
         item_list = self.elements_are_visible(elem)
         random.sample(item_list, k=1)[0].click()
 
+    @allure.step('select list item')
     def select_list_item(self):
         self.element_is_visible(self.locators.LIST).click()
         self.click_selected_item(self.locators.LIST_ITEM)
         active_element = self.element_is_visible(self.locators.LIST_ITEM_ACTIVE)
         return active_element.text
 
+    @allure.step('select grid item')
     def select_grid_item(self):
         self.element_is_visible(self.locators.GRID).click()
         self.click_selected_item(self.locators.GRID_ITEM)
@@ -62,16 +70,19 @@ class SelectablePage(BasePage):
 class ResizablePage(BasePage):
     locators = ResizablePageLocators
 
+    @allure.step('get px from width and height')
     def get_px_from_width_height(self, value_of_size):
         width = value_of_size.split(';')[0].split(':')[1].replace(' ', '')
         height = value_of_size.split(';')[1].split(':')[1].replace(' ', '')
         return width, height
 
+    @allure.step('get max and min size')
     def get_max_and_min_size(self, elem):
         size = self.element_is_present(elem)
         size_value = size.get_attribute('style')
         return size_value
 
+    @allure.step('change size resizable box')
     def change_size_resaziable_box(self):
         self.action_drag_and_drop_by_offset(self.element_is_present(self.locators.RESIZABLE_BOX_HANDLE), 400, 200)
         max_size = self.get_px_from_width_height(self.get_max_and_min_size(self.locators.RESIZABLE_BOX))
@@ -79,6 +90,7 @@ class ResizablePage(BasePage):
         min_size = self.get_px_from_width_height(self.get_max_and_min_size(self.locators.RESIZABLE_BOX))
         return max_size, min_size
 
+    @allure.step('change size resizable')
     def change_size_resaziable(self):
         qw = self.element_is_present(self.locators.RESIZABLE_HANDLE)
         self.go_to_element(qw)
@@ -94,6 +106,7 @@ class ResizablePage(BasePage):
 class DroppablePage(BasePage):
     locators = DroppablePageLocators
 
+    @allure.step('drop simple div')
     def drop_simple(self):
         self.element_is_visible(self.locators.SIMPLE_TAB).click()
         drag_div = self.element_is_visible(self.locators.DRAG_ME_SIMPLE)
@@ -101,6 +114,7 @@ class DroppablePage(BasePage):
         self.action_drag_and_drop_to_element(drag_div, drop_div)
         return drop_div.text
 
+    @allure.step('drop accept div')
     def drop_accept(self):
         self.element_is_visible(self.locators.ACCEPT_TAB).click()
         acceptable_div = self.element_is_visible(self.locators.ACCEPTABLE)
@@ -112,6 +126,7 @@ class DroppablePage(BasePage):
         drop_acceptable = drop_div.text
         return drop_acceptable, drop_not_acceptable
 
+    @allure.step('drop prevent propogation div')
     def drop_prevent(self):
         self.element_is_visible(self.locators.PREVENT_TAB).click()
         drag_div = self.element_is_visible(self.locators.DRAG_ME_PREVENT)
@@ -125,6 +140,7 @@ class DroppablePage(BasePage):
         text_greedy_inner_box = greedy_inner_box.text
         return text_not_greedy_box,text_not_greedy_inner_box, text_greedy_box, text_greedy_inner_box
 
+    @allure.step('drop will reventable')
     def drop_will_revertable(self):
         self.element_is_visible(self.locators.REVERT_TAB).click()
         drag_div = self.element_is_visible(self.locators.WILL_REVERT)
@@ -135,6 +151,7 @@ class DroppablePage(BasePage):
         position_after = drag_div.get_attribute('style')
         return position_before, position_after
 
+    @allure.step('drop will not reventable')
     def drop_not_revertable(self):
         self.element_is_visible(self.locators.REVERT_TAB).click()
         drag_div = self.element_is_visible(self.locators.NOT_REVERT)
@@ -148,6 +165,7 @@ class DroppablePage(BasePage):
 class DragablePage(BasePage):
     locators = DragablePageLocators
 
+    @allure.step('get before and after positions')
     def simple(self):
         self.element_is_visible(self.locators.SIMPLE_TAB).click()
         drag_before = self.element_is_visible(self.locators.SIMPLE_DRAG)
@@ -157,6 +175,7 @@ class DragablePage(BasePage):
         position_after = drag_after.get_attribute('style')
         return position_before, position_after
 
+    @allure.step('drag only_y')
     def axis_y_restricted(self):
         self.element_is_visible(self.locators.AXIS_TAB).click()
         drag_y_before = self.element_is_visible(self.locators.ONLY_Y)
@@ -166,6 +185,7 @@ class DragablePage(BasePage):
         position_y_after = drag_y_after.get_attribute('style')
         return position_y_before, position_y_after
 
+    @allure.step('drag only_x')
     def axis_x_restricted(self):
         self.element_is_visible(self.locators.AXIS_TAB).click()
         drag_x_before = self.element_is_visible(self.locators.ONLY_X)
